@@ -51,5 +51,9 @@ st.text("So, the most popular artist is Rihanna, since")
 st.code('''pop_artist = df.groupby('artist')[['artist','popularity']].sum().sort_values('popularity',ascending=False).head(10)
 print('The most popular artist is', pop_artist.index[0])''')
 
-st.text("GENRE")
+st.subheader("GENRE")
+st.text("Now we analize the variable Genre. We count how many songs there are for each genre.")
+st.code('''genre = spotify_df['genre'].value_counts()''')
+st.text("In order to better visualize this we made this barchart.")
+st.text("Here we can see that the most populated genre is pop.")
 
