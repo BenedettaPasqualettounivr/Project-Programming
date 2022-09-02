@@ -47,7 +47,9 @@ st.text("ARTIST")
 st.text("First of all we check how many songs each artist did:")
 st.code('''artist=df['artist'].value_counts()''')
 st.text("Then we plot it, in order to see which are the five most important artists:")
+st.text("So, the most popular artist is Rihanna, since")
+st.code('''pop_artist = df.groupby('artist')[['artist','popularity']].sum().sort_values('popularity',ascending=False).head(10)
+print('The most popular artist is', pop_artist.index[0])''')
 
-artist = spotify_df['artist'].value_counts()
+st.text("GENRE")
 
-st.bar_chart(data=artist)
