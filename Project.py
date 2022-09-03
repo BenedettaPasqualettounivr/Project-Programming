@@ -86,7 +86,7 @@ song_yr_explicit.rename(columns={False:'Clean', True: 'Explicit'}, inplace=True)
 st.text("BARCHART")
 st.text("Here we can see another way to visualize the amount of explicit and non explicit content by a different")
 st.text("barchart.")
-st.text(BARCHART)
+st.text("BARCHART")
 
 st.subheader("CORRELATION")
 
