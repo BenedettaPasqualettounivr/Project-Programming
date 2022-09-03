@@ -66,8 +66,8 @@ st.text("Focusing then on the Hits, we can now see the Top 5 Genres which are hi
 st.code('''tp_genres=genre[:5]
 tp_genres_names=genre[:5].index''')
 st.text("BAR CHART")
-st.text("Pop seems to be the most popular type of genre. In fact, 428 songs of the")
-st.text("top-hits spotify songs since 2000-2019 belong to pop. This is followed by")
+st.text("Pop seems to be the most popular type of genre. In fact, 428 songs of the spotify's")
+st.text("top-hits songs since 2000-2019 belong to pop. This is followed by")
 st.text("hip-hop,pop which is the 2nd most popular conbination of genre.")
 
 st.subheader("EXPLICIT CONTENT")
@@ -89,7 +89,12 @@ st.text("barchart.")
 st.text("BARCHART")
 
 st.subheader("CORRELATION")
-
+st.text("Now we will analyze the correlation between various features. To do this we create a mew dataframe to find")
+st.text("the relation among the numerical variables present in the dataset. ")
+st.code('''df_new = spotify_df[['duration_ms', 'year', 'popularity', 'danceability', 'energy', 
+     'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']]''')
+st.text("The result of the study is the following heatmap where we plot all the correlations between the variables.")
+st.text("HEATMAP")
 
 
 
