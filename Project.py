@@ -96,6 +96,15 @@ st.code('''df_new = spotify_df[['duration_ms', 'year', 'popularity', 'danceabili
 st.text("The result of the study is the following heatmap where we plot all the correlations between the variables.")
 st.text("HEATMAP")
 
+st.subheader("FOCUS ON RIHANNA")
+st.text("Since the most popular artist is Rihanna, we decide to do a focus on her.")
+st.text("We filter the dataset in order to obtain only the songs of Rihanna.")
+st.code("rihanna_df = spotify_df[spotify_df['artist'] == 'Rihanna']")
+st.text("We count then the number of songs she has.")
+st.code('''len(rihanna_df.song.unique())''')
+st.text("We now use a code to get the popularity and the number of songs per year.")
+st.text("BARCHART")
+
 
 
 
