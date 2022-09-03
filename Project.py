@@ -11,7 +11,7 @@ spotify_df = ("songs_normalize.csv")
 st.title("TOP HITS SPOTIFY FROM 2000 TO 2019")
 st.image("logo.png")
 
-st.text("We starting from an analysis of our dataset in order to understand the data, with code like:")
+st.text("We started from an analysis of our dataset in order to understand the data, with code like:")
 st.code('''spotify_df.shape''')
 st.code('''spotify_df.columns''')
 st.code ('''spotify_df.info()''')
@@ -55,5 +55,43 @@ st.subheader("GENRE")
 st.text("Now we analize the variable Genre. We count how many songs there are for each genre.")
 st.code('''genre = spotify_df['genre'].value_counts()''')
 st.text("In order to better visualize this we made this barchart.")
+st.text("BAR CHART")
 st.text("Here we can see that the most populated genre is pop.")
+st.text("There are a lot of genres so we decide to focus on the first 10 most popular.")
+st.code('''genre_distribution = pd.DataFrame(spotify_df.genre.value_counts().rename_axis('Genre').reset_index(
+    name='total'))
+genre_distribution.head(10)''')
+st.text("So we made a pie chart to see their distribution in percentage.")
+st.text("Focusing then on the Hits, we can now see the Top 5 Genres which are hits.")
+st.code('''tp_genres=genre[:5]
+tp_genres_names=genre[:5].index''')
+st.text("BAR CHART")
+st.text("Pop seems to be the most popular type of genre. In fact, 428 songs of the")
+st.text("top-hits spotify songs since 2000-2019 belong to pop. This is followed by")
+st.text("hip-hop,pop which is the 2nd most popular conbination of genre.")
+
+st.subheader("EXPLICIT CONTENT")
+st.text("Now we want to have a view of the amount of explicit content in the top-hits.")
+st.text("We firstly count the amount of explicit and not-explicit content and then we plot it with a Barchart")
+st.text("and with a piechart.")
+st.code('''data=spotify_df['explicit'].value_counts()
+explicit_songs_or_not = (spotify_df.explicit.value_counts().rename_axis('Explicit').reset_index(name = 'songs'))
+explicit_songs_or_not''')
+st.text("BARCHART")
+st.text("Here we used the piechart in order to have the percentage")
+st.text("PIECHART")
+st.text("Now, we visualize the number of top-hits wich are explicit over the years. ")
+st.code('''song_yr_explicit = spotify_df.groupby(['year','explicit']).size().unstack(fill_value=0).reset_index()
+song_yr_explicit.rename(columns={False:'Clean', True: 'Explicit'}, inplace=True)''')
+st.text("BARCHART")
+st.text("Here we can see another way to visualize the amount of explicit and non explicit content by a different")
+st.text("barchart.")
+st.text(BARCHART)
+
+st.subheader("CORRELATION")
+
+
+
+
+
 
