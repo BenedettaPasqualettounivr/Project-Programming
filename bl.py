@@ -173,7 +173,13 @@ plt.show()
 st.pyplot(fig6)
 
 st.text("Here we used the piechart in order to have the percentage")
-st.image("fig7.jpeg")
+
+fig7 = plt.figure(figsize=(12,8))
+fig = px.pie(explicit_songs_or_not, names = ['Not explicit','Explicit'], 
+             values = 'songs', template='seaborn',
+            title = 'Percentage of explicit content in the top hits from 2000 to 2019')
+fig.show()
+st.pyplot(fig7)
 
 st.text("Now, we visualize the number of top-hits wich are explicit over the years. ")
 st.code('''song_yr_explicit = spotify_df.groupby(['year','explicit']).size().unstack(fill_value=0).reset_index()
@@ -229,24 +235,27 @@ st.code('''len(rihanna_df.song.unique())''')
 len(rihanna_df.song.unique())
 st.text("We now use a code to get the popularity and the number of songs per year.")
 
-fig11 = px.bar(rihanna_df, x='year', y='popularity',title = 'Total Popularity of song by year')
+fig11 = plt.figure(figsize=(8,2))
+fig = px.bar(rihanna_df, x='year', y='popularity',title = 'Total Popularity of song by year')
 fig.show()
 st.pyplot(fig11)
+
 st.text("Then in order to have an overview of Rihanna we calculate the sum of her")
 st.text("popularity:")
-fig12 = px.histogram(rihanna_df, x="year", y="popularity",
+
+fig12 = plt.figure(figsize=(8,3))
+fig = px.histogram(rihanna_df, x="year", y="popularity",
                    hover_data=rihanna_df.columns)
+fig.show()
 st.pyplot(fig12)
+
 st.text("Then we proceed calculating her five best songs:")
 rihanna_df = rihanna_df.sort_values('popularity',ascending=False)
 rihanna_df[['song','year','popularity','genre']].head()
 
 fig13 = plt.figure(figsize=(15,10))
 sns.heatmap(rihanna_df.corr())
-
-
-
-
+st.pyplot(fig13)
 
 
 cost = []
@@ -256,18 +265,36 @@ for num_clusters in list(K):
     kmode.fit_predict(df)
     cost.append(kmode.cost_)
     
+st.subheader("CLUSTERING")
+st.text("Now, we use clustering in order to understand how data are grouped")
+st.text("First of all, we use the Elbow method to see which is the best number of clusters:")
+fig14 = plt.figure(figsize=(15,10))
 plt.plot(K, cost, 'bx-')
 plt.xlabel('No. of clusters')
 plt.ylabel('Cost')
 plt.title('Elbow Method For Optimal k')
 plt.show()
+st.pyplot(fig14)
+
 kmode = KModes(n_clusters=5, init = "random", n_init = 5, verbose=1)
 clusters = kmode.fit_predict(df)
 df.insert(0, 'Cluster', clusters, True)
-plt.figure(figsize=(20,16))
+
+st.text("Then, we plot the variables energy and loudness to see the distribution:")
+fig15 = plt.figure(figsize=(20,16))
 plt.scatter(df['energy'], df['loudness'])
 plt.xlabel('Energy')
 plt.ylabel('Loudness')
+st.pyplot(fig15)
+st.text("Through some codes like:")
+st.code('''square_distances = []
+x = df[['energy','loudness']]
+for i in range(1, 11):
+    km = KMeans(n_clusters=5, random_state=42)
+    km.fit(x)
+    square_distances.append(km.inertia_)
+km = KMeans(n_clusters=5, random_state=42)
+y_pred = km.fit_predict(x)''')
 square_distances = []
 x = df[['energy','loudness']]
 for i in range(1, 11):
@@ -276,7 +303,8 @@ for i in range(1, 11):
     square_distances.append(km.inertia_)
 km = KMeans(n_clusters=5, random_state=42)
 y_pred = km.fit_predict(x)
-plt.figure(figsize=(20,30))
+st.text("We find out that the clusters are")
+fig16 = plt.figure(figsize=(20,30))
 labels = ['pop', 'rock', 'R&B', 'deance', 'hip-hop']
 for i in range(5):
     plt.scatter(x.loc[y_pred==i, 'energy'], x.loc[y_pred==i, 'loudness'], label=labels[i])
@@ -285,3 +313,4 @@ plt.xlabel('Energy')
 plt.ylabel('Loudness')
 plt.legend()
 plt.show()
+st.pyplot(fig16)
